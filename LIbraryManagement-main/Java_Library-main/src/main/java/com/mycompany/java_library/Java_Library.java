@@ -35,6 +35,7 @@ public class Java_Library{
                     case 2 -> {
                         Functions.clear_screen(3000);
                         user.register_prompt();
+                        return;
                     }
                     case 3 -> {
                         return;

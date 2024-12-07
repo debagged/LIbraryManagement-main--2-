@@ -1,5 +1,6 @@
 package com.mycompany.java_library.users;
 
+import java.io.IOException;
 import java.util.*;
 import com.mycompany.java_library.library_function.libraryFunctions;
 
@@ -9,7 +10,7 @@ public class Students extends libraryFunctions{
     static libraryFunctions libFunc = new libraryFunctions();
 
 
-    public void student(){
+    public void student() throws IOException, InterruptedException{
         //Select option: viewbooks, viewBorredBooks, borrowBooks, exit
         while(true){
             System.out.println("""
@@ -28,11 +29,11 @@ public class Students extends libraryFunctions{
                 }
 
                 case 2 ->{
-                    //under construction 
+                    libFunc.borrowBooks(); 
                 }
 
                 case 3 ->{
-                    // to follow
+                    libFunc.viewBorrowedBooks();
                 }
 
                 case 4 ->{

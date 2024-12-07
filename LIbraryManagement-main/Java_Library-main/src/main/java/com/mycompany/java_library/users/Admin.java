@@ -10,7 +10,7 @@ public class Admin extends libraryFunctions{
       static Scanner scan = new Scanner(System.in);
 
 
-      public void admin() throws IOException{
+      public void admin() throws IOException, InterruptedException{
         //Select option: viewbooks, viewBorredBooks, borrowBooks, exit
         while(true){
             System.out.println("""
