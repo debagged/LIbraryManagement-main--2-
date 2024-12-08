@@ -75,7 +75,7 @@ public class UserData {
     }
 
     private void saveDataToFile(String user_name, String password){
-        try (FileWriter fw = new FileWriter("UserData_Log_File.gsheet", true);
+        try (FileWriter fw = new FileWriter("UserData_Log_File.txt", true);
                 PrintWriter pw = new PrintWriter(fw)) {
                     pw.println(user_name + ":" + password);
                     pw.println("Role: Student");
@@ -86,7 +86,7 @@ public class UserData {
     }
 
     private boolean readDataFromFile(String username, String password) throws IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader("UserData_Log_File.gsheet"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("UserData_Log_File.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(":");
@@ -99,7 +99,7 @@ public class UserData {
     }
     
     private String roleValidation(String username, String password) throws IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader("UserData_Log_File.gsheet"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("UserData_Log_File.txt"))) {
             String line;
             //String fileRole;
             while ((line = br.readLine()) != null) {
