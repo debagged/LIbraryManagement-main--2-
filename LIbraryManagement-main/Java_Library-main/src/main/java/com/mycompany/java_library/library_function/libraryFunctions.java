@@ -16,7 +16,10 @@ import com.mycompany.java_library.users.*;
                      book_author = "", 
                      book_isbn = "";
     
-        
+    ///////////////
+    ///  BOOKS  ///
+    ///////////////
+
     public void bookFileMaker(String name){
         // Create the file
         book_file = new File(name + ".txt");
@@ -48,43 +51,7 @@ import com.mycompany.java_library.users.*;
                         book_author, book_title, book_isbn));
         }
     }
-
-
-    public void borrowFileMaker(String name){
-        // Create the file
-        borrowedBooksFile = new File(name + ".txt");
-
-        try {
-            if (borrowedBooksFile.createNewFile()){
-                System.out.println("File created: "+borrowedBooksFile.getName()+" has been successfully created!");
-            } 
-            else {
-                System.out.println("File already exists. Writing to the existing file...");
-            }
-        } catch (IOException | InputMismatchException err) {
-            err.printStackTrace();
-        }   
-    }
-    public void writeHeader_Borrowers() throws IOException {
-        try (FileWriter fileWriter = new FileWriter(borrowedBooksFile, true)) {
-            fileWriter.write(String.format("%-35s | %-15s | %-35s | %-35s | %-15s%n", 
-                             "Student Name", "Student ID", "Book Title", "Book Author", "Book Number"));
-        }
-    }
-    public void fileWriter_Borrowers(String student_name, String student_ID, String book_title, String book_author, String book_isbn) throws IOException {
-        // Check if the file is empty, if so, write the header
-        
-        if (borrowedBooksFile.length() == 0) {
-            writeHeader_Borrowers();
-        }
     
-        try (FileWriter fileWriter = new FileWriter(borrowedBooksFile, true)) {
-            fileWriter.append(String.format("%-35s | %-15s | %-35s | %-35s | %-15s%n", 
-                            student_name, student_ID, book_title, book_author, book_isbn));
-        }
-    }
-    
-
     // Library Functions
     public void addBooks() throws IOException, InterruptedException { 
         Functions.clear_screen(2000);
@@ -124,10 +91,48 @@ import com.mycompany.java_library.users.*;
             System.out.println("File Not Found");
             e.printStackTrace();
         }
+    }
+    
 
 
+
+
+    //////////////////////
+    ///  BORROW BOOKS  ///
+    //////////////////////
+    public void borrowFileMaker(String name){
+        // Create the file
+        borrowedBooksFile = new File(name + ".txt");
+
+        try {
+            if (borrowedBooksFile.createNewFile()){
+                System.out.println("File created: "+borrowedBooksFile.getName()+" has been successfully created!");
+            } 
+            else {
+                System.out.println("File already exists. Writing to the existing file...");
+            }
+        } catch (IOException | InputMismatchException err) {
+            err.printStackTrace();
+        }   
+    }
+    public void writeHeader_Borrowers() throws IOException {
+        try (FileWriter fileWriter = new FileWriter(borrowedBooksFile, true)) {
+            fileWriter.write(String.format("%-35s | %-15s | %-35s | %-35s | %-15s%n", 
+                             "Student Name", "Student ID", "Book Title", "Book Author", "Book Number"));
+        }
+    }
+    public void fileWriter_Borrowers(String student_name, String student_ID, String book_title, String book_author, String book_isbn) throws IOException {
+        // Check if the file is empty, if so, write the header
+        if (borrowedBooksFile.length() == 0) {
+            writeHeader_Borrowers();
+        }
+        try (FileWriter fileWriter = new FileWriter(borrowedBooksFile, true)) {
+            fileWriter.append(String.format("%-35s | %-15s | %-35s | %-35s | %-15s%n", 
+                            student_name, student_ID, book_title, book_author, book_isbn));
+        }
     }
 
+    //Library Functions
     public void borrowBooks() throws IOException, InterruptedException{
         Functions.clear_screen(2000);
         
@@ -200,8 +205,9 @@ import com.mycompany.java_library.users.*;
 
     }
 
-    public void viewBorrowedBooks(){
+    public void viewBorrowedBooks() throws InterruptedException {
         try {
+            Functions.clear_screen(2000);
             borrowedBooksFile = new File("Borrowed Books.txt");
             try (Scanner fileReader = new Scanner(borrowedBooksFile)){
                 System.out.println("Borrowed Books:");
@@ -216,5 +222,5 @@ import com.mycompany.java_library.users.*;
             //e.printStackTrace(); is only usefull for debugging, don't put it in production, take it out
         }
     }
-    
+
 }

@@ -11,21 +11,16 @@ public class UserData {
     static libraryFunctions libraryFuncs = new libraryFunctions();
     static Functions screen = new Functions();
 
-
     protected String first_name = "",
                      last_name = "",
                      user_ID = "",
                      user_name = "", 
                      password = "";
 
-
     public void register_prompt() throws IOException, InterruptedException{
-
-        // System.out.print("Enter Given Name: ");
-        // first_name = scan.nextLine();
-
-        // System.out.print("Enter Last Name: ");
-        // last_name = scan.nextLine();
+        System.out.println("=====================");
+        System.out.println("||     REGISTER    ||");
+        System.out.println("=====================");
 
         System.out.print("Enter Username: ");
         user_name = scan.nextLine();
@@ -36,15 +31,17 @@ public class UserData {
         Functions.clear_screen(200);
 
         saveDataToFile(user_name, password);
-        
     }
 
     public void login_prompt() throws IOException, InterruptedException{
         Admin admin_class = new Admin();
         Students student_class = new Students();
 
-    
         while(true){
+            System.out.println("=====================");
+            System.out.println("||      LOGIN      ||");
+            System.out.println("=====================");
+
             System.out.print("Enter Username: ");
             user_name = scan.nextLine();
 
@@ -59,8 +56,7 @@ public class UserData {
                     Functions.clear_screen(2000);
                     System.out.println("Welcome Admin!");
 
-                    admin_class.admin();
-                    
+                    admin_class.admin(); 
                 }else{
                     Functions.clear_screen(2000);
                     System.out.println("Login Successful");
@@ -70,7 +66,6 @@ public class UserData {
 
                     student_class.student();
                 }
-                
                 break; // Exit the loop on successful login
             } else {
                 System.out.println("\nWrong Username or Password!!");

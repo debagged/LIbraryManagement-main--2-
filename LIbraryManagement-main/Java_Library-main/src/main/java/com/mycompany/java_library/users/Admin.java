@@ -26,7 +26,6 @@ public class Admin extends libraryFunctions{
                 case 1 ->{
                   libFunc.addBooks();
                 }
-
                 case 2 ->{
                   libFunc.viewBooks();
                 }

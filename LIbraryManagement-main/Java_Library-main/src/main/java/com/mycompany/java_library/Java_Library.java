@@ -12,53 +12,75 @@ public class Java_Library{
 
     
     public static void main(String[] args) throws Exception{
-        Functions.clear_screen(3000);
-        System.out.println("LIBRARY APPLICATION APP!");
-        Thread.sleep(3000);
-
-       while(true){ 
-            System.out.println("""
-                               Select Action
-                               1. Log in
-                               2. Register
-                               3. Exit""");
-            System.out.print("Enter Selected Action: ");
+        menu();
         
-            try {
-                int role  = scan.nextInt();
-
-                switch(role){
-                    case 1 -> {
+               while(true){ 
+                    System.out.println("""
+                                       Select Action
+                                       1. Log in
+                                       2. Register
+                                       3. Exit""");
+                    System.out.print("Enter Selected Action: ");
+                
+                    try {
+                        int role  = scan.nextInt();
+        
+                        switch(role){
+                            case 1 -> {
+                                Functions.clear_screen(3000);
+                                user.login_prompt();
+                                break;
+                            }
+                            case 2 -> {
+                                Functions.clear_screen(3000);
+                                user.register_prompt();
+                                break;
+                            }
+                            case 3 -> {
+                                return;
+                            }
+        
+                            default -> {        
+                                System.out.println("\nPlease try again!, Input is not in the option");
+                                Functions.clear_screen(3000);
+                                continue;
+                            }
+                        }
+        
+                    } catch (NumberFormatException | InputMismatchException e) {
+                        System.out.println("E: Input is not in the option, Try Again.");
+                        scan.nextLine();
                         Functions.clear_screen(3000);
-                        user.login_prompt();
+         
                     }
-                    case 2 -> {
-                        Functions.clear_screen(3000);
-                        user.register_prompt();
-                        return;
-                    }
-                    case 3 -> {
-                        return;
-                    }
-
-                    default -> {        
-                        System.out.println("\nPlease try again!, Input is not in the option");
-                        Functions.clear_screen(3000);
-                        continue;
-                    }
-                }
-                break;
-
-            } catch (NumberFormatException | InputMismatchException e) {
-                System.out.println("E: Input is not in the option, Try Again.");
-                scan.nextLine();
-                Functions.clear_screen(3000);
- 
+               }
             }
-       }
+        
+        
+        public static void menu() throws InterruptedException{
+        Functions.clear_screen(3000);
+        System.out.println("*********************************************");
+        System.out.println("*                                           *");
+        System.out.println("*    WELCOME TO THE LIBRARY APPLICATION!    *");
+        System.out.println("*                                           *");
+        System.out.println("*********************************************");
+        System.out.println();
+        System.out.println("              █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█             ");
+        System.out.println("              █    WELCOME!    █             ");
+        System.out.println("              █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█             ");
+        System.out.println("               ▀██████████████▀              ");
+        System.out.println("                   ████████                  ");
+        System.out.println("                     ████                    ");
+        System.out.println("                  ▄▄▄████▄▄▄                 ");
+        System.out.println();
+        Thread.sleep(3000);
+        System.out.println("*********************************************");
+        System.out.println("*     Manage books, borrow, and explore!    *");
+        System.out.println("*       Bringing the library to you.        *");
+        System.out.println("*********************************************");
+
     }
 }
-
 
 
  
