@@ -3,13 +3,12 @@ import java.util.*;
 import java.io.*;
 
 import com.mycompany.java_library.screen_functions.Functions;
-import com.mycompany.java_library.users.*;
 
-    public class libraryFunctions extends UserData{
+    public class libraryFunctions {
     
     static Scanner scan = new Scanner(System.in);
     private static File book_file, borrowedBooksFile;
-
+    
     protected String student_name = "",
                      student_ID = "",
                      book_title = "",
@@ -19,26 +18,13 @@ import com.mycompany.java_library.users.*;
     ///////////////
     ///  BOOKS  ///
     ///////////////
-
-    public void bookFileMaker(String name){
-        // Create the file
-        book_file = new File(name + ".txt");
-
-        try {
-            if (book_file.createNewFile()){
-                System.out.println("File created: "+book_file.getName()+" has been successfully created!");
-            } 
-            else {
-                System.out.println("File already exists. Writing to the existing file...");
-            }
-        } catch (IOException | InputMismatchException err) {
-            err.printStackTrace();
-        }   
-    }
     public void writeHeader_Books() throws IOException {
         try (FileWriter fileWriter = new FileWriter(book_file, true)) {
-            fileWriter.write(String.format("%-35s | %-35s | %-15s%n", 
+            fileWriter.write(String.format("%-35s | %-35s | %-20s | %n", 
                             "Book Author", "Book Title", "Book Number"));
+                 // Write footer divider
+            fileWriter.append(String.format("%-35s | %-35s | %-20s | %n", 
+                 "===================================", "===================================", "===================="));
         }
     }
     public void fileWriter_Books(String book_title, String book_author, String book_isbn) throws IOException {
@@ -47,16 +33,22 @@ import com.mycompany.java_library.users.*;
         }
         
         try (FileWriter fileWrite = new FileWriter(book_file, true)) { 
-            fileWrite.append(String.format("%-35s | %-35s | %-15s%n", 
+            fileWrite.append(String.format("%-35s | %-35s | %-20s | %n", 
                         book_author, book_title, book_isbn));
         }
     }
-    
-    // Library Functions
+
+    // Library Books Functions
     public void addBooks() throws IOException, InterruptedException { 
         Functions.clear_screen(2000);
 
-        bookFileMaker("Books");
+        // Create the file
+        book_file = new File("Books.txt");
+
+        System.out.println("///////////////////////");
+        System.out.println("///    ADD BOOKS    ///");
+        System.out.println("///////////////////////");
+
         System.out.print("Enter Book Title: ");
         this.book_title = scan.nextLine();
 
@@ -67,58 +59,46 @@ import com.mycompany.java_library.users.*;
         this.book_isbn = scan.nextLine();
 
         fileWriter_Books(book_title, book_author, book_isbn);
+
+        Functions.clear_screen(2000);
     }
-
-    public void viewBooks(){
-
+    public void viewBooks()throws InterruptedException{
         try{
             Functions.clear_screen(2000);
 
             book_file = new File("Books.txt");
             Scanner fileReader = new Scanner(book_file);
-            System.out.println("Books Stored");
 
-            System.out.println("==============================================================");
+            System.out.println("///////////////////////");
+            System.out.println("///   BOOKS LIST    ///");
+            System.out.println("///////////////////////");
+
+            System.out.println("===================================================================================================");
             while(fileReader.hasNextLine()){
                 String data = fileReader.nextLine();
                 System.out.println(data);
             }
             fileReader.close();
-            System.out.println("==============================================================");
+            System.out.println("===================================================================================================");
 
         
         }catch (FileNotFoundException | InterruptedException e){
-            System.out.println("File Not Found");
-            e.printStackTrace();
+            System.out.println("File Not Found!!");
+            System.out.println();
+            Functions.clear_screen(2000);
         }
     }
-    
-
-
-
 
     //////////////////////
     ///  BORROW BOOKS  ///
     //////////////////////
-    public void borrowFileMaker(String name){
-        // Create the file
-        borrowedBooksFile = new File(name + ".txt");
-
-        try {
-            if (borrowedBooksFile.createNewFile()){
-                System.out.println("File created: "+borrowedBooksFile.getName()+" has been successfully created!");
-            } 
-            else {
-                System.out.println("File already exists. Writing to the existing file...");
-            }
-        } catch (IOException | InputMismatchException err) {
-            err.printStackTrace();
-        }   
-    }
     public void writeHeader_Borrowers() throws IOException {
         try (FileWriter fileWriter = new FileWriter(borrowedBooksFile, true)) {
-            fileWriter.write(String.format("%-35s | %-15s | %-35s | %-35s | %-15s%n", 
+            fileWriter.write(String.format("%-35s | %-15s | %-35s | %-35s | %-20s | %n", 
                              "Student Name", "Student ID", "Book Title", "Book Author", "Book Number"));
+            fileWriter.append(String.format("%-35s | %-35s | %-15s | %n", 
+            "===================================", "===================================", "===================="));
+            
         }
     }
     public void fileWriter_Borrowers(String student_name, String student_ID, String book_title, String book_author, String book_isbn) throws IOException {
@@ -127,7 +107,7 @@ import com.mycompany.java_library.users.*;
             writeHeader_Borrowers();
         }
         try (FileWriter fileWriter = new FileWriter(borrowedBooksFile, true)) {
-            fileWriter.append(String.format("%-35s | %-15s | %-35s | %-35s | %-15s%n", 
+            fileWriter.append(String.format("%-35s | %-15s | %-35s | %-35s | %-20s | %n", 
                             student_name, student_ID, book_title, book_author, book_isbn));
         }
     }
@@ -136,7 +116,7 @@ import com.mycompany.java_library.users.*;
     public void borrowBooks() throws IOException, InterruptedException{
         Functions.clear_screen(2000);
         
-        borrowFileMaker("Borrowed Books");
+        borrowedBooksFile = new File("Borrowed_Books.txt");
 
         viewBooks();
 
@@ -148,16 +128,7 @@ import com.mycompany.java_library.users.*;
 
         System.out.print("Enter ISBN or Book Title: ");
         String searchBook = scan.nextLine();
-
-        /***System.out.print("Enter Book Title: ");
-        //book_title = scan.nextLine();
-
-        // System.out.print("Enter Book Author: ");
-        // book_author = scan.nextLine();
-
-        //System.out.print("Enter ISBN: ");
-        //book_isbn = scan.nextLine();}
-        */
+     
 
         boolean bookFound = false;
         boolean is_borrowed = false;
@@ -173,7 +144,7 @@ import com.mycompany.java_library.users.*;
 
                 if ((searchBook.equalsIgnoreCase(foundTitle) || searchBook.equalsIgnoreCase(foundISBN)) && (!line.startsWith("Borrowed by"))) {
                     
-                    try(BufferedReader reader = new BufferedReader(new FileReader("Borrowed Books.txt"))){
+                    try(BufferedReader reader = new BufferedReader(new FileReader("Borrowed_Books.txt"))){
                         String borrowedLine;
 
                         while((borrowedLine = reader.readLine()) != null){
@@ -200,27 +171,32 @@ import com.mycompany.java_library.users.*;
             }
             if(!bookFound){
                 System.out.println("Book Not Found or Already Borrowed");
+                System.out.println();
+                Functions.clear_screen(2000);
             }
         }
 
     }
-
     public void viewBorrowedBooks() throws InterruptedException {
         try {
             Functions.clear_screen(2000);
-            borrowedBooksFile = new File("Borrowed Books.txt");
-            try (Scanner fileReader = new Scanner(borrowedBooksFile)){
+            borrowedBooksFile = new File("Borrowed_Books.txt");
+            Scanner fileReader = new Scanner(borrowedBooksFile);
+            
+            if(borrowedBooksFile.exists()){
                 System.out.println("Borrowed Books:");
 
                 while(fileReader.hasNextLine()){
                     String dataBorrowBooks = fileReader.nextLine();
                     System.out.println(dataBorrowBooks);
                 }
+                fileReader.close();
             }
+
         } catch (FileNotFoundException e) {
             System.out.println("Error: " + e.getMessage());
-            //e.printStackTrace(); is only usefull for debugging, don't put it in production, take it out
+            System.out.println();
+            Functions.clear_screen(2000);
         }
     }
-
 }

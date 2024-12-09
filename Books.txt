@@ -1,0 +1,3 @@
+Book Author                         | Book Title                          | Book Number          | 
+=================================== | =================================== | ==================== | 
+Mark Manson                         | Everything is Fucked Up             | 978-0-06-288846-4    | 

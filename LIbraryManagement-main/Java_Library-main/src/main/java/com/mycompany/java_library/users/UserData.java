@@ -11,19 +11,21 @@ public class UserData {
     static libraryFunctions libraryFuncs = new libraryFunctions();
     static Functions screen = new Functions();
 
+
     protected String first_name = "",
                      last_name = "",
                      user_ID = "",
                      user_name = "", 
                      password = "";
+                    
 
-    public void register_prompt() throws IOException, InterruptedException{
-        System.out.println("=====================");
-        System.out.println("||     REGISTER    ||");
-        System.out.println("=====================");
+    public void register_prompt() throws InterruptedException{
+        System.out.println("====================");
+        System.out.println("||    REGISTER    ||");
+        System.out.println("====================");
 
         System.out.print("Enter Username: ");
-        user_name = scan.nextLine();
+        user_name = scan.nextLine().toLowerCase();
 
         System.out.print("Enter Password: ");
         password = scan.nextLine();
@@ -51,18 +53,21 @@ public class UserData {
             if (readDataFromFile(user_name, password)) {
                 if(roleValidation(user_name, password).equals("Admin")){
                     Functions.clear_screen(2000);
-                    System.out.println("Login Successful");
+                    System.out.println("Login Successful!!");
                     
                     Functions.clear_screen(2000);
                     System.out.println("Welcome Admin!");
+                    Functions.clear_screen(2000);
+
 
                     admin_class.admin(); 
                 }else{
                     Functions.clear_screen(2000);
-                    System.out.println("Login Successful");
+                    System.out.println("Login Successful!!");
 
                     Functions.clear_screen(2000);
                     System.out.println("Welcome Student!");
+                    Functions.clear_screen(2000);
 
                     student_class.student();
                 }
@@ -116,6 +121,7 @@ public class UserData {
         return null;
     }
 
+    
 }
 
 

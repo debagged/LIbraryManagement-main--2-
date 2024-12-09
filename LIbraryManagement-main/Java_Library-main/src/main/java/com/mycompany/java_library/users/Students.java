@@ -3,12 +3,11 @@ package com.mycompany.java_library.users;
 import java.io.IOException;
 import java.util.*;
 import com.mycompany.java_library.library_function.libraryFunctions;
+import com.mycompany.java_library.screen_functions.Functions;
 
 public class Students extends libraryFunctions{
     static Scanner scan = new Scanner(System.in);
-
     static libraryFunctions libFunc = new libraryFunctions();
-
 
     public void student() throws IOException, InterruptedException{
         //Select option: viewbooks, viewBorredBooks, borrowBooks, exit
@@ -26,17 +25,20 @@ public class Students extends libraryFunctions{
             switch (option) {
                 case 1 ->{
                     libFunc.viewBooks();
+                    break;
                 }
-
                 case 2 ->{
                     libFunc.borrowBooks(); 
+                    break;
                 }
 
                 case 3 ->{
                     libFunc.viewBorrowedBooks();
+                    break;
                 }
 
                 case 4 ->{
+                    Functions.clear_screen(2000);
                     return;
                 }
                 default -> {
