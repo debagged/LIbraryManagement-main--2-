@@ -96,9 +96,8 @@ import com.mycompany.java_library.screen_functions.Functions;
         try (FileWriter fileWriter = new FileWriter(borrowedBooksFile, true)) {
             fileWriter.write(String.format("%-35s | %-15s | %-35s | %-35s | %-20s | %n", 
                              "Student Name", "Student ID", "Book Title", "Book Author", "Book Number"));
-            fileWriter.append(String.format("%-35s | %-35s | %-15s | %n", 
-            "===================================", "===================================", "===================="));
-            
+            fileWriter.write(String.format("%-35s | %-15s | %-35s | %-35s | %-20s | %n", 
+            "===================================", "===============","===================================", "===================================","===================="));
         }
     }
     public void fileWriter_Borrowers(String student_name, String student_ID, String book_title, String book_author, String book_isbn) throws IOException {
@@ -116,8 +115,12 @@ import com.mycompany.java_library.screen_functions.Functions;
     public void borrowBooks() throws IOException, InterruptedException{
         Functions.clear_screen(2000);
         
+        // Ensure the borrowed books file exists
         borrowedBooksFile = new File("Borrowed_Books.txt");
-
+        if (!borrowedBooksFile.exists()) {
+            borrowedBooksFile.createNewFile();
+        }
+        
         viewBooks();
 
         System.out.print("Enter Student Name: ");
@@ -155,6 +158,7 @@ import com.mycompany.java_library.screen_functions.Functions;
                         }
                         if(is_borrowed){
                             System.out.println("This Book has already been borrowed");
+                            Functions.clear_screen(2000);
                             return;
                         }
                     }
@@ -166,6 +170,8 @@ import com.mycompany.java_library.screen_functions.Functions;
                     book_isbn = foundISBN;
 
                     fileWriter_Borrowers(student_name, student_ID, book_title, book_author, book_isbn);
+
+                    Functions.clear_screen(2000);
                 }
                 
             }
